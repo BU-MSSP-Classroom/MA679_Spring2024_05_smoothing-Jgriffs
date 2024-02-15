@@ -121,19 +121,32 @@ Please write your answer in full sentences.
 This question relates to the College data set.
 ```{r}
 data(College,package = "ISLR2")
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(leaps))
 ```
 
 (a) Split the data into a training set and a test set. Using out-of-state tuition as the response and the other variables as the predictors.  Based on the exercises in the previous chapter, identify a satisfactory model that uses just a subset of the predictors.
 
 
-
 Your code:
 ```{r,echo=TRUE}
-#
-#
+Train_College <- slice_sample(College,n = 222)
+Test_College <- anti_join(College,Train_College)
+
+Mod_College <- regsubsets(Outstate ~.,Train_College)
+
+Mod_summary <- summary(Mod_College)
+names(Mod_summary)
+Mod_summary$rsq
+
+plot(Mod_College, scale = "r2")
+plot(Mod_College, scale = "adjr2")
+plot(Mod_College, scale = "Cp")
+plot(Mod_College, scale = "bic")
+
 ```
 
-Your answer:
+Your answer:The model uses Private,Accept,F.Undergrad,Room.Board,Personal,PhD,Perc.alumni,expand.
 
 ~~~
 Please write your answer in full sentences.
@@ -149,7 +162,7 @@ Please write your answer in full sentences.
 Your code:
 ```{r,echo=TRUE}
 #
-#
+
 ```
 
 Your answer:
