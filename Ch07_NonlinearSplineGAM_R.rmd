@@ -146,41 +146,38 @@ plot(Mod_College, scale = "bic")
 
 ```
 
-Your answer:The model uses Private,Accept,F.Undergrad,Room.Board,Personal,PhD,Perc.alumni,expand.
+Your answer:The model uses Private,Accept,F.Undergrad,Room.Board,Personal,PhD,Perc.alumni,expend.
 
 ~~~
 Please write your answer in full sentences.
 
 
 ~~~
-
-
 (b) Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in the previous step as the predictors. Plot the results, and explain your findings.
-
-
 
 Your code:
 ```{r,echo=TRUE}
-#
+library(gam)
+Gam_College <- gam(Outstate ~ Private + s(Accept) + s(F.Undergrad) + s(Room.Board) + s(Personal) + s(PhD) + s(perc.alumni) + s(Expend),data = Train_College)
+
+summary(Gam_College)
 
 ```
 
-Your answer:
+Your answer:The only two predictors that don't appear to have a significant relationship are Personal, and PhD. Accept, F. Undergrad, Perc alumni, and expenditure have the most complex nonlinear relationship with Outstate.
 
 ~~~
 Please write your answer in full sentences.
-
 
 ~~~
 
 (c) Evaluate the model obtained on the test set, and explain the results.
 
-
-
 Your code:
 ```{r,echo=TRUE}
-#
-#
+Gam_Predict <- predict(Gam_College, newdata = Test_College)
+Gam_Predict <- as.data.frame(Gam_Predict)
+
 ```
 
 Your answer:
@@ -193,22 +190,18 @@ Please write your answer in full sentences.
 
 (d) For which variables, if any, is there evidence of a non-linear relationship with the response?
 
-
-
 Your code:
 ```{r,echo=TRUE}
 #
-#
 ```
 
-Your answer:
+Your answer: Acceptance, Room/Board, PhD, Expenditure, F undergrad, and Perc alumni. 
 
 ~~~
 Please write your answer in full sentences.
 
 
 ~~~
-
 
 ### Auto Data
 
